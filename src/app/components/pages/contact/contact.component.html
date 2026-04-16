@@ -1,1 +1,117 @@
-<p>contact works!</p>
+<section class="contact | py-3">
+
+  <h3 class="mb-4">Contact Us</h3>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+    <!-- Name Field -->
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="name">Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Your full name"
+            formControlName="name"
+          />
+          <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="invalid-feedback d-block">
+            Name is required
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="email">Email <span class="text-danger">*</span></label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Your email address"
+            formControlName="email"
+          />
+          <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="contactForm.get('email')?.errors?.required">Email is required</span>
+            <span *ngIf="contactForm.get('email')?.errors?.pattern">Please enter a valid email address</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Field -->
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="phone">Phone <span class="text-danger">*</span></label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone"
+            name="phone"
+            placeholder="Your phone number"
+            formControlName="phone"
+          />
+          <div *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="contactForm.get('phone')?.errors?.required">Phone is required</span>
+            <span *ngIf="contactForm.get('phone')?.errors?.pattern">Please enter a valid phone number</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Field -->
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="message">Message <span class="text-danger">*</span></label>
+          <textarea
+            class="form-control"
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Please enter your message (minimum 10 characters)"
+            formControlName="message"
+          ></textarea>
+          <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="contactForm.get('message')?.errors?.required">Message is required</span>
+            <span *ngIf="contactForm.get('message')?.errors?.minlength">Message must be at least 10 characters long</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-end gap-2">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!contactForm.valid"
+          >
+            Send Message
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onReset()"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</section>
